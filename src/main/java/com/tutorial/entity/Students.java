@@ -10,8 +10,8 @@ import javax.persistence.Id;
  * Author - rohit
  * Project - Tutorial
  * Package - com.tutorial.entity
- * Created_on - 16 November-2023
- * Created_at - 20 : 15
+ * Created_on - 17 November-2023
+ * Created_at - 19 : 16
  */
 
 @Entity
