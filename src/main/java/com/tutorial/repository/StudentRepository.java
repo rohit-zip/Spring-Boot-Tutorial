@@ -12,5 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Created_at - 19 : 38
  */
 
+//@Repository
 public interface StudentRepository extends JpaRepository<Students, Integer> {
 }

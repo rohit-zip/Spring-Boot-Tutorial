@@ -43,17 +43,18 @@ public class StudentsController {
     @Autowired
     private StudentRepository studentRepository;
 
-//    @RequestMapping(method = RequestMethod.POST, value = "/create")
+//    @RequestMapping(method = RequestMethod.POST, path = "/create")
     @PostMapping("/create")
     public Students createUser(@RequestBody Students students) {
-        Students savedData = studentRepository.save(students);
-        return savedData;
+        Students savedStudent = studentRepository.save(students);
+        return savedStudent;
     }
 
-    //@RequestMapping(method = RequestMethod.GET, value = "/get-all")
-    @GetMapping("/get-all")
-    public List<Students> getAll() {
-        List<Students> all = studentRepository.findAll();
-        return all;
+    //http://localhost:8080/create POST
+
+    @GetMapping("/all-students")
+    public List<Students> allStudents(@RequestBody Students students) {
+        List<Students> allStudents = studentRepository.findAll();
+        return allStudents;
     }
 }
