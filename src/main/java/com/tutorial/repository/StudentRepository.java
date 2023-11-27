@@ -1,6 +1,6 @@
 package com.tutorial.repository;
 
-import com.tutorial.entity.Students;
+import com.tutorial.entity.StudentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,10 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Author - rohit
  * Project - Tutorial
  * Package - com.tutorial.repository
- * Created_on - 17 November-2023
- * Created_at - 19 : 38
+ * Created_on - 27 November-2023
+ * Created_at - 23 : 36
  */
 
-//@Repository
-public interface StudentRepository extends JpaRepository<Students, Integer> {
+public interface StudentRepository extends JpaRepository<StudentEntity, Integer> {
 }
