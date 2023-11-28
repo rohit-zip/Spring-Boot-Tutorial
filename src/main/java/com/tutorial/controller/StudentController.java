@@ -2,7 +2,7 @@ package com.tutorial.controller;
 
 import com.tutorial.entity.StudentEntity;
 import com.tutorial.repository.StudentRepository;
-import org.hibernate.type.IntegerType;
+import com.tutorial.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,52 +23,34 @@ import java.util.Optional;
 public class StudentController {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private StudentService studentService;
 
     @PostMapping
     public String createUser(@RequestBody StudentEntity studentEntity) {
-//        StudentEntity savedStudent = studentRepository.save(studentEntity);
-        studentRepository.save(studentEntity);
-        return "Student Saved to the Database Successfully";
+        System.err.println("Entered in Controller createUser");
+        String response = studentService.addUser(studentEntity);
+        System.err.println("Returning data to user from the controller");
+        return response;
     }
 
-    @GetMapping
-    public List<StudentEntity> getAll() {
-        List<StudentEntity> allStudents = studentRepository.findAll();
-        return allStudents;
-    }
-
-    //SPeL
-    @GetMapping("/{id}")
-    public Object findById(@PathVariable Integer id) {
-        Optional<StudentEntity> byId = studentRepository.findById(id);
-        if (byId.isPresent()) {
-            StudentEntity studentEntity = byId.get();
-            return studentEntity;
-        } else {
-            return "Student not found for Id : " + id;
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public String deleteById(@PathVariable Integer id) {
-        try {
-            studentRepository.deleteById(id);
-        } catch (Exception exception) {
-            return exception.getMessage();
-        }
-        return "Student Data deleted from Database Successfully";
-    }
-
-    @PutMapping("/{id}")
-    public Object updateStudent(@RequestBody StudentEntity studentEntity, @PathVariable Integer id) {
-        Optional<StudentEntity> byId = studentRepository.findById(id);
-        if (byId.isPresent()) {
-            studentEntity.setStudentId(id);
-            StudentEntity updatedStudent = studentRepository.save(studentEntity);
-            return updatedStudent;
-        } else {
-            return "Student Data Not Found";
-        }
-    }
+//    @GetMapping
+//    public List<StudentEntity> getAll() {
+//
+//    }
+//
+//    //SPeL
+//    @GetMapping("/{id}")
+//    public Object findById(@PathVariable Integer id) {
+//
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public String deleteById(@PathVariable Integer id) {
+//
+//    }
+//
+//    @PutMapping("/{id}")
+//    public Object updateStudent(@RequestBody StudentEntity studentEntity, @PathVariable Integer id) {
+//
+//    }
 }
