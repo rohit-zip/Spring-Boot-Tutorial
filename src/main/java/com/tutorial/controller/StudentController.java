@@ -1,13 +1,12 @@
 package com.tutorial.controller;
 
 import com.tutorial.entity.StudentEntity;
-import com.tutorial.repository.StudentRepository;
 import com.tutorial.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Owner - Rohit Parihar
@@ -26,13 +25,12 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping
-    public String createUser(@RequestBody StudentEntity studentEntity) {
-        String response = studentService.addUser(studentEntity);
-        return response;
+    public StudentEntity createUser(@RequestBody StudentEntity studentEntity) {
+        return studentService.addStudent(studentEntity);
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteById(@PathVariable Integer id) {
-        return studentService.delete(studentService.delete(id.toString()));
-    }
+//    @DeleteMapping("/{id}")
+//    public String deleteById(@PathVariable Integer id) {
+//
+//    }
 }
