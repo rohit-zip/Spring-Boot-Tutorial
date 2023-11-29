@@ -27,30 +27,12 @@ public class StudentController {
 
     @PostMapping
     public String createUser(@RequestBody StudentEntity studentEntity) {
-        System.err.println("Entered in Controller createUser");
         String response = studentService.addUser(studentEntity);
-        System.err.println("Returning data to user from the controller");
         return response;
     }
 
-//    @GetMapping
-//    public List<StudentEntity> getAll() {
-//
-//    }
-//
-//    //SPeL
-//    @GetMapping("/{id}")
-//    public Object findById(@PathVariable Integer id) {
-//
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public String deleteById(@PathVariable Integer id) {
-//
-//    }
-//
-//    @PutMapping("/{id}")
-//    public Object updateStudent(@RequestBody StudentEntity studentEntity, @PathVariable Integer id) {
-//
-//    }
+    @DeleteMapping("/{id}")
+    public String deleteById(@PathVariable Integer id) {
+        return studentService.delete(studentService.delete(id.toString()));
+    }
 }

@@ -5,6 +5,9 @@ import com.tutorial.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * Owner - Rohit Parihar
  * Author - rohit
@@ -21,9 +24,26 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     public String addUser(StudentEntity studentEntity) {
-        System.err.println("Entered in StudentService addUser");
         StudentEntity save = studentRepository.save(studentEntity);
-        System.err.println("Returning response from the StudentService");
         return "Student Saved successfully to the database";
+    }
+
+    public List<StudentEntity> getAll() {
+        return studentRepository.findAll();
+    }
+
+    public String delete(String id) {
+        int idData;
+        try {
+            idData = Integer.parseInt(id);
+        } catch (Exception exception) {
+            return exception.getMessage();
+        }
+        try {
+            studentRepository.deleteById(idData);
+            return "Deleted";
+        } catch (Exception exception) {
+            return exception.getMessage();
+        }
     }
 }
