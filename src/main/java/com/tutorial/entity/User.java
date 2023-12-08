@@ -41,7 +41,6 @@ public class User {
     @Column(nullable = false)
     private String password;
     private Boolean isEnabled;
-//    private Date dateRegistered;
     private LocalDate dateRegistered;
     private LocalTime timeRegistered;
 }

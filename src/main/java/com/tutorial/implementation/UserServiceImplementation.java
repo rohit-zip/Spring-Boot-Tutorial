@@ -5,13 +5,11 @@ import com.tutorial.entity.User;
 import com.tutorial.repository.UserRepository;
 import com.tutorial.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,11 +32,6 @@ public class UserServiceImplementation implements UserService {
         String name = userDto.getName();
         String email = userDto.getEmail();
         String password = userDto.getPassword();
-
-        //        user.setDateRegistered(new Date());
-//        user.setDateRegistered(Date.from(Instant.now()));
-//        user.setDateRegistered(new Date(System.currentTimeMillis()));
-
         User user = new User();
         user.setName(name);
         user.setEmail(email);
@@ -46,8 +39,11 @@ public class UserServiceImplementation implements UserService {
         user.setIsEnabled(false);
         user.setDateRegistered(LocalDate.now());
         user.setTimeRegistered(LocalTime.now());
-
         User savedUser = userRepository.save(user);
+        UserDto response = new UserDto();
+        response.setName(savedUser.getName());
+        response.setEmail(savedUser.getEmail());
+        return response;
     }
 
     @Override
