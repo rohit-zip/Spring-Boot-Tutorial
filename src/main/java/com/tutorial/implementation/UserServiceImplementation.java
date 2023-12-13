@@ -2,15 +2,17 @@ package com.tutorial.implementation;
 
 import com.tutorial.dto.UserDto;
 import com.tutorial.entity.User;
+import com.tutorial.exception.UserNotFoundException;
 import com.tutorial.repository.UserRepository;
 import com.tutorial.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Owner - Rohit Parihar
@@ -48,31 +50,69 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public UserDto getUserById(Long id) {
-        return null;
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User", "User Id", id));
+        UserDto userDto = new UserDto();
+        userDto.setEmail(user.getEmail());
+        userDto.setName(user.getName());
+        return userDto;
     }
 
     @Override
     public List<UserDto> getAllUser() {
-        return null;
+        List<User> all = userRepository.findAll();
+        List<UserDto> dtos = new ArrayList<>();
+        for (User user : all) {
+            UserDto userDto = new UserDto();
+            user.setEmail(user.getEmail());
+            user.setName(user.getName());
+            dtos.add(userDto);
+        }
+        return dtos;
     }
 
     @Override
     public void deleteUser(Long id) {
-
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User", "User Id", id));
+        userRepository.delete(user);
     }
 
     @Override
     public UserDto updateUser(Long id, UserDto userDto) {
-        return null;
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User", "User Id", id));
+        user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+        User savedUser = userRepository.save(user);
+        UserDto dto = new UserDto();
+        dto.setEmail(savedUser.getEmail());
+        dto.setName(savedUser.getName());
+        dto.setPassword(savedUser.getPassword());
+        return dto;
     }
 
     @Override
     public List<UserDto> getUserByEmail(String email) {
-        return null;
+        List<User> byEmailContaining = userRepository.findByEmailContaining(email);
+        List<UserDto> dtos = new ArrayList<>();
+        for (User user : byEmailContaining) {
+            UserDto userDto = new UserDto();
+            user.setEmail(user.getEmail());
+            user.setName(user.getName());
+            dtos.add(userDto);
+        }
+        return dtos;
     }
 
     @Override
     public List<UserDto> getUserByName(String name) {
-        return null;
+        List<User> byNameContainingIgnoreCase = userRepository.findByNameContainingIgnoreCase(name);
+        List<UserDto> dtos = new ArrayList<>();
+        for (User user : byNameContainingIgnoreCase) {
+            UserDto userDto = new UserDto();
+            user.setEmail(user.getEmail());
+            user.setName(user.getName());
+            dtos.add(userDto);
+        }
+        return dtos;
     }
 }

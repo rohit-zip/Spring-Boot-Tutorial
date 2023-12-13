@@ -35,4 +35,12 @@ public class GlobalExceptionHandler {
         }
         return errorList;
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ErrorDto handleUserNotFoundException(UserNotFoundException userNotFoundException) {
+        String message = userNotFoundException.getMessage();
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setMessage(message);
+        return errorDto;
+    }
 }
