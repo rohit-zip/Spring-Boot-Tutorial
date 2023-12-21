@@ -9,7 +9,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Owner - Rohit Parihar
@@ -43,4 +45,7 @@ public class User {
     private Boolean isEnabled;
     private LocalDate dateRegistered;
     private LocalTime timeRegistered;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Post> posts = new ArrayList<>();
 }
