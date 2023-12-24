@@ -2,8 +2,8 @@ package com.tutorial.service;
 
 import com.tutorial.dto.ApiResponse;
 import com.tutorial.dto.CommentRequest;
+import com.tutorial.entity.Comments;
 
-import javax.xml.stream.events.Comment;
 import java.util.List;
 
 /**
@@ -18,8 +18,8 @@ import java.util.List;
 public interface CommentService {
 
     ApiResponse addComment(CommentRequest commentRequest, Long userId, Long postId);
-    ApiResponse getComment(Long commentId);
-    List<Comment> getAllComments();
-    ApiResponse updateComment(CommentRequest commentRequest, String postId, String commentId);
+    Comments getComment(Long commentId);
+    List<Comments> getAllComments();
+    ApiResponse updateComment(CommentRequest commentRequest, Long commentId);
     ApiResponse deleteComment(Long commentId);
 }

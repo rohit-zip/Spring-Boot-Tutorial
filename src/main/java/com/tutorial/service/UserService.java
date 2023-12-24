@@ -1,13 +1,8 @@
 package com.tutorial.service;
 
 import com.tutorial.dto.UserDto;
-import org.springframework.validation.annotation.Validated;
-import org.w3c.dom.stylesheets.LinkStyle;
 
-import javax.persistence.SecondaryTable;
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Owner - Rohit Parihar

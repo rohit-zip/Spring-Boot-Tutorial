@@ -11,6 +11,7 @@ import com.tutorial.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -64,26 +65,71 @@ public class PostImplementation implements PostService {
 
     @Override
     public PostResponse getPost(Long postId) {
-        return null;
+        Post post = postRepository.findById(postId).orElseThrow(() -> new UserNotFoundException("Post", "Post Id", postId));
+
+        // Convert to Post response
+        return PostResponse
+                .builder()
+                .userId(post.getUser().getUserId())
+                .createdOn(post.getDateCreated())
+                .description(post.getDescription())
+                .title(post.getTitle())
+                .build();
     }
 
     @Override
     public List<PostResponse> getPosts() {
-        return null;
+        List<Post> postList = postRepository.findAll();
+
+        List<PostResponse> response = new ArrayList<>();
+        for (Post post : postList) {
+            PostResponse postResponse = PostResponse
+                    .builder()
+                    .userId(post.getUser().getUserId())
+                    .createdOn(post.getDateCreated())
+                    .description(post.getDescription())
+                    .title(post.getTitle())
+                    .build();
+            response.add(postResponse);
+        }
+        return response;
     }
 
     @Override
-    public PostResponse updatePost(PostRequest postRequest, Long postId, Long userId) {
-        return null;
+    public PostResponse updatePost(PostRequest postRequest, Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new UserNotFoundException("Post", "Post Id", postId));
+        post.setTitle(postRequest.getTitle());
+        post.setDescription(postRequest.getDescription());
+        Post savedPost = postRepository.save(post);
+        return PostResponse
+                .builder()
+                .userId(savedPost.getUser().getUserId())
+                .createdOn(savedPost.getDateCreated())
+                .description(savedPost.getDescription())
+                .title(savedPost.getTitle())
+                .build();
     }
 
     @Override
     public void deletePost(Long postId) {
-
+        Post post = postRepository.findById(postId).orElseThrow(() -> new UserNotFoundException("Post", "Post Id", postId));
+        postRepository.delete(post);
     }
 
     @Override
     public List<PostResponse> getPostByUser(Long userId) {
-        return null;
+        List<Post> postList = postRepository.findByUser_UserId(userId);
+        List<PostResponse> response = new ArrayList<>();
+        for (Post post : postList) {
+            PostResponse postResponse = PostResponse
+                    .builder()
+                    .userId(post.getUser().getUserId())
+                    .createdOn(post.getDateCreated())
+                    .description(post.getDescription())
+                    .title(post.getTitle())
+                    .build();
+            response.add(postResponse);
+        }
+        return response;
     }
 }

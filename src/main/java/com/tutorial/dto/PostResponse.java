@@ -1,7 +1,6 @@
 package com.tutorial.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DatabindException;
 import lombok.*;
 
 import java.util.Date;
