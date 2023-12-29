@@ -3,12 +3,10 @@ package com.tutorial.controller;
 import com.tutorial.dto.UserDto;
 import com.tutorial.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Owner - Rohit Parihar
@@ -30,5 +28,15 @@ public class UserController {
     public UserDto addUser(@Valid @RequestBody UserDto userDto) {
         UserDto response = userService.addUser(userDto);
         return response;
+    }
+
+    @GetMapping("/{userId}")
+    public UserDto getUserById(@PathVariable Long userId) {
+        return userService.getUserById(userId);
+    }
+
+    @GetMapping
+    public List<UserDto> getUsers() {
+        return userService.getAllUser();
     }
 }
