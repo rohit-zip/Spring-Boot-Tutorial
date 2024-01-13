@@ -6,6 +6,7 @@ import com.tutorial.exception.UserNotFoundException;
 import com.tutorial.repository.UserRepository;
 import com.tutorial.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,6 +29,9 @@ public class UserServiceImplementation implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDto addUser(UserDto userDto) {
         String name = userDto.getName();
@@ -36,7 +40,7 @@ public class UserServiceImplementation implements UserService {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         user.setIsEnabled(false);
         user.setDateRegistered(LocalDate.now());
         user.setTimeRegistered(LocalTime.now());
