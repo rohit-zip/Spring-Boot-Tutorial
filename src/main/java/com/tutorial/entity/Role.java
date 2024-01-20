@@ -1,13 +1,5 @@
 package com.tutorial.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 /**
  * Owner - Rohit Parihar
  * Author - rohit
@@ -17,14 +9,8 @@ import javax.persistence.Id;
  * Created_at - 22 : 12
  */
 
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Role {
+public enum Role {
 
-    @Id
-    private String roleId;
-    private String roleName;
+    USER,
+    ADMIN
 }

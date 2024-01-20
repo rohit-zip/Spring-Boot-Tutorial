@@ -1,6 +1,7 @@
 package com.tutorial.implementation;
 
 import com.tutorial.dto.UserDto;
+import com.tutorial.entity.Role;
 import com.tutorial.entity.User;
 import com.tutorial.exception.UserNotFoundException;
 import com.tutorial.repository.UserRepository;
@@ -41,9 +42,10 @@ public class UserServiceImplementation implements UserService {
         user.setName(name);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
-        user.setIsEnabled(false);
+        user.setIsEnabled(true);
         user.setDateRegistered(LocalDate.now());
         user.setTimeRegistered(LocalTime.now());
+        user.setRole(Role.USER);
         User savedUser = userRepository.save(user);
         UserDto response = new UserDto();
         response.setName(savedUser.getName());

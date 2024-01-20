@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/auth/register")
     public UserDto addUser(@Valid @RequestBody UserDto userDto) {
         UserDto response = userService.addUser(userDto);
         return response;
